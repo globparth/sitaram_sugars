@@ -1,0 +1,10 @@
+# robots.txt — Sitaram Maharaj Sakhar Karkhana (Khardi) Ltd.
+User-agent: *
+Allow: /
+
+# Keep crawlers out of non-public folders if you add them later
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+
+Sitemap: https://www.sitaramsugars.com/sitemap.xml
