@@ -1,0 +1,23 @@
+{
+ "name": "Shri Sadguru Sitaram Maharaj Urban Co-op. Credit Society Ltd.",
+ "short_name": "Sitaram Urban",
+ "lang": "mr",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#f7f4ee",
+ "theme_color": "#0e3b2c",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  }
+ ]
+}

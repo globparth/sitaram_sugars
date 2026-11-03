@@ -1,4 +1,6 @@
+# robots.txt — Shri Sadguru Sitaram Maharaj Urban Co-op. Credit Society Ltd.
 User-agent: *
 Allow: /
+Disallow: /404.html
 
-Sitemap: https://www.sitaramurban.com/sitemap.xml
+Sitemap: https://globparth.github.io/sitaram_sugars/sitemap.xml
