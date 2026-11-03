@@ -719,7 +719,7 @@ html[lang="en"] .soc-card h3{font-size:28px}
 .soc-card.dark p{color:#c7d1de}
 .soc-card.dark h3{color:#fff}
 .soc-card .vill{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
-.soc-card .vill span{border:1px solid rgba(226,196,126,.4);color:#f3e2b5;border-radius:999px;padding:5px 12px;font-size:13.5px}
+.soc-card .vill > span{border:1px solid rgba(226,196,126,.4);color:#f3e2b5;border-radius:999px;padding:5px 12px;font-size:13.5px}
 .soc-card .big{font-family:"Cormorant Garamond",var(--head);font-size:64px;line-height:1;background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
 .soc-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:40px}
 .soc-it{display:flex;gap:16px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
@@ -751,6 +751,29 @@ html[lang="en"] .aw h3{font-size:27px}
 .aw p{margin:0;color:var(--muted);font-size:15.5px;line-height:1.65}
 @media(max-width:860px){.aw-grid{grid-template-columns:1fr}}
 .soc-card .ph:not(.clip){aspect-ratio:16/8}
+
+/* social feature (home) */
+.soc-feature{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;margin-top:40px;height:560px}
+.sf-main,.sf-tile{position:relative;border-radius:14px;overflow:hidden;cursor:zoom-in;background:var(--navy-3)}
+.sf-main .ph,.sf-tile .ph{position:absolute;inset:0}
+.sf-main:hover img,.sf-tile:hover img{transform:scale(1.04)}
+.sf-main::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(20,6,26,.94) 0%,rgba(20,6,26,.6) 42%,rgba(20,6,26,0) 72%);pointer-events:none}
+.sf-tx{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:32px;color:#fff}
+.sf-k{display:inline-block;background:var(--goldgrad);color:#2a1d05;font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:999px;margin-bottom:14px}
+.sf-tx h3{font-size:clamp(24px,2.6vw,34px);color:#fff;margin-bottom:14px}
+html[lang="en"] .sf-tx h3{font-size:clamp(28px,3vw,40px)}
+.sf-row{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.sf-row b{font-family:"Cormorant Garamond",var(--head);font-size:64px;line-height:.9;font-weight:600;background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;color:transparent}
+html[lang="mr"] .sf-row b{font-family:var(--head);font-size:52px}
+.sf-row > span{color:#e6dcef;font-size:15.5px;max-width:300px;line-height:1.45}
+.sf-tx .vill{display:flex;flex-wrap:wrap;gap:8px}
+.sf-tx .vill > span{border:1px solid rgba(226,196,126,.5);color:#f3e2b5;border-radius:999px;padding:5px 14px;font-size:13.5px;background:rgba(0,0,0,.2)}
+.sf-side{display:grid;grid-template-rows:1fr 1fr;gap:16px;min-height:0}
+.sf-tile .lab{position:absolute;left:14px;bottom:14px;right:14px;z-index:2;background:rgba(20,6,26,.82);color:#fff;font-size:13.5px;padding:8px 14px;border-radius:10px;line-height:1.4}
+.sf-tile.clip{background:#f4efe6}
+.sf-tile.clip img{object-fit:cover;object-position:top}
+@media(max-width:900px){.soc-feature{grid-template-columns:1fr;height:auto}.sf-main{min-height:480px}.sf-side{grid-template-rows:none;grid-template-columns:1fr 1fr}.sf-tile{min-height:240px}}
+@media(max-width:560px){.sf-side{grid-template-columns:1fr}.sf-tile{min-height:220px}.sf-tx{padding:22px}.sf-row b{font-size:44px}}
 
 :root{--navy:#0e3b2c;--navy-2:#14503c;--navy-3:#07241b}.slide::after{background:linear-gradient(90deg,rgba(5,28,20,.9) 0%,rgba(5,28,20,.62) 48%,rgba(5,28,20,.15) 100%),linear-gradient(0deg,rgba(5,28,20,.7),transparent 45%)}.banner::after{background:linear-gradient(90deg,rgba(5,28,20,.92),rgba(5,28,20,.55))}.cta::after{background:linear-gradient(90deg,rgba(5,28,20,.95),rgba(5,28,20,.7))}
 </style>
@@ -1423,6 +1446,10 @@ function renderAwards(){
   const html = S.awards.map((w,i)=>`<figure class="aw rv ${i?'d1':''}"><button class="aw-img" data-i="${i}" aria-label="${LL(w.t)}"><img data-src="${w.img}" data-w="1400" alt="${LL(w.t)}"><span class="zoom">${L('मोठे पहा','View')} ⤢</span></button><figcaption><small>${LL(w.k)}</small><h3>${LL(w.t)}</h3><p>${LL(w.p)}</p></figcaption></figure>`).join('');
   ['awHome','awAbout'].forEach(id=>{ set(id, html); const g=$(id); if(g){ g.classList.toggle('one', S.awards.length===1); g.querySelectorAll('.aw-img').forEach(b=>b.onclick=()=>openLb(+b.dataset.i, S.awards.map(w=>({src:w.img, mr:w.t[0], en:w.t[1]})))); } });
 }
+document.querySelectorAll('[data-lb]').forEach(el=>{
+  const open = ()=>openLb(0,[{src:el.dataset.lb, mr:el.dataset.capMr, en:el.dataset.capEn}]);
+  el.addEventListener('click', open); el.addEventListener('keydown', e=>{ if(e.key==='Enter') open(); });
+});
 function renderSocialIcons(){
   const ic = {facebook:'<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v7h4v-7h3l1-4h-4V8z"/>', instagram:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/>', twitter:'<path d="M4 4l16 16M20 4L4 20"/>', youtube:'<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z"/>'};
   set('social', Object.keys(ic).filter(k=>CONTACT[k]).map(k=>`<a href="${CONTACT[k]}" target="_blank" rel="noopener" aria-label="${k}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">${ic[k]}</svg></a>`).join(''));
