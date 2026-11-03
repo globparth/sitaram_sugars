@@ -795,6 +795,16 @@ html[lang="mr"] .sf-row b{font-family:var(--head);font-size:52px}
 
 .msg .pf{width:170px;height:170px}
 
+/* header: never let brand collide with nav */
+.hdr .brand{flex:0 1 auto;min-width:0}
+.hdr .brand > span{min-width:0;overflow:hidden}
+.hdr .brand b,.hdr .brand small{overflow:hidden;text-overflow:ellipsis}
+.hdr .nav{flex:none}
+html[lang="en"] .hdr .brand small{letter-spacing:.08em;font-size:10.5px}
+@media(max-width:1480px){.hdr .btn{display:none}}
+
+@media(max-width:480px){html[lang="en"] .hdr .brand small{letter-spacing:.03em;font-size:9.5px}}
+
 :root{--navy:#0e3b2c;--navy-2:#14503c;--navy-3:#07241b}.slide::after{background:linear-gradient(90deg,rgba(5,28,20,.9) 0%,rgba(5,28,20,.62) 48%,rgba(5,28,20,.15) 100%),linear-gradient(0deg,rgba(5,28,20,.7),transparent 45%)}.banner::after{background:linear-gradient(90deg,rgba(5,28,20,.92),rgba(5,28,20,.55))}.cta::after{background:linear-gradient(90deg,rgba(5,28,20,.95),rgba(5,28,20,.7))}
 </style>
 </head>
