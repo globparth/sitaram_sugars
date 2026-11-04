@@ -923,6 +923,14 @@ html[lang="mr"] .el-next small{letter-spacing:0;font-size:14px;text-transform:no
 .lk-photo .ph.lk2{inset:auto 0 0 auto;width:52%;height:52%;border:6px solid var(--surface)}
 @media(max-width:860px){.lk-photo{max-width:320px}}
 
+.el-dl{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.el-info{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:26px 0 0}
+.el-info > div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.el-info dt{font-size:12.5px;color:var(--gold);font-weight:600;letter-spacing:.04em}
+.el-info dd{margin:4px 0 0;font-size:14.5px;line-height:1.5}
+@media(max-width:900px){.el-info{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.el-info{grid-template-columns:1fr}.el-dl .btn{width:100%;justify-content:center}}
+
 :root{--navy:#0e3b2c;--navy-2:#14503c;--navy-3:#07241b}.slide::after{background:linear-gradient(90deg,rgba(5,28,20,.9) 0%,rgba(5,28,20,.62) 48%,rgba(5,28,20,.15) 100%),linear-gradient(0deg,rgba(5,28,20,.7),transparent 45%)}.banner::after{background:linear-gradient(90deg,rgba(5,28,20,.92),rgba(5,28,20,.55))}.cta::after{background:linear-gradient(90deg,rgba(5,28,20,.95),rgba(5,28,20,.7))}
 </style>
 </head>
@@ -1507,7 +1515,7 @@ function renderBoard(){
 }
 function renderDocs(){
   const ds=$('docsSec'); if(ds) ds.style.display = S.docs.length ? '' : 'none';
-  set('docs', S.docs.length ? S.docs.map(x=>`<a class="doc rv" href="${x.file}" target="_blank" rel="noopener"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/></svg></span><div><b>${L(x.mr,x.en)}</b><span>${x.date||'PDF'} · ${L('पहा / डाउनलोड','View / download')}</span></div></a>`).join('')
+  set('docs', S.docs.length ? S.docs.map(x=>`<a class="doc rv" href="${x.file}" target="_blank" rel="noopener" download><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/></svg></span><div><b>${L(x.mr,x.en)}</b><span>${x.date||'PDF'} · ${L('पहा / डाउनलोड','View / download')}</span></div></a>`).join('')
     : `<div class="empty-docs rv"><b>${L('दस्तऐवज लवकरच प्रसिद्ध होतील','Documents will be published here')}</b>${L('निवडणूक आदेश, मतदार यादी, नामनिर्देशन व निकाल जाहीर होताच येथे उपलब्ध होतील. अधिक माहितीसाठी मुख्य कार्यालयाशी संपर्क साधा.','Election orders, voter lists, nominations and results will appear here as soon as they are announced. Contact the head office for details.')}</div>`);
 }
 
@@ -1624,6 +1632,7 @@ function renderElection(){
     const c=$('elCallTx'); if(c) c.textContent = L('पुढील टप्पा: ','Next: ')+LL(nx[3])+' — '+LL(nx[4]);
   } else set('elNext', `<div><small>${L('स्थिती','Status')}</small><b>${L('निवडणूक प्रक्रिया पूर्ण','Election process complete')}</b></div>`);
   set('elRoll', LL(E.roll)+'.');
+  if(E.info) set('elInfo', E.info.map(r=>`<div><dt>${LL(r[0])}</dt><dd>${LL(r[1])}</dd></div>`).join(''));
   set('elCeo', `<span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><div><small>${L('मुख्य कार्यकारी अधिकारी (CEO)','Chief Executive Officer (CEO)')}</small><b>${L(E.ceo[0],E.ceo[1])}</b><span><a href="tel:${E.ceo[2]}">${E.ceo[2].slice(0,5)} ${E.ceo[2].slice(5)}</a> · <a href="mailto:${E.ceo[3]}">${E.ceo[3]}</a></span></div><p>${L('निवडणूक कार्यक्रम निवडणूक अधिकाऱ्यांच्या आदेशानुसार; बदल झाल्यास येथे अद्ययावत केले जाईल. CEA — सहकारी निवडणूक प्राधिकरण.','Programme as per the Returning Officer\'s order; any change will be updated here. CEA — Co-operative Election Authority.')}</p>`);
   document.querySelectorAll('.el-tabs button').forEach(b=>{ b.setAttribute('aria-pressed', b.dataset.t===elTab); b.onclick=()=>{ elTab=b.dataset.t; renderElection(); }; });
 }
